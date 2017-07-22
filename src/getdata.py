@@ -4,7 +4,6 @@ import os
 import numpy as np
 from PIL import Image
 import tensorlayer as tl
-#root_path = '/home/lihang/2017/bdimg/data/train_data/'
 
 def makelabel2label(root_path):
     li = os.listdir(root_path)
@@ -82,5 +81,4 @@ def get_dict(filepath):
     file = [i.split('\t') for i in file]
     res = {i[0]:i[1] for i in file}
     return res
-#X = get_test('/home/lihang/2017/bdimg/data/test1/')
-#print(X.shape)
+

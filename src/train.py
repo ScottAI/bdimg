@@ -121,10 +121,6 @@ def train(X_train,Y_train,X_test,Y_test,depoch=50,ftepoch=201,batch_size=32,clas
     print('epoch: ',i,'eval_acc: ',acc1)
     if i%10 == 0 and i !=0:
       model.save(out+str(i))
-  #X_test = preprocess_input(X_test)
-  X_train = preprocess_input(X_train)
-  model.fit(X_train,Y_train,batch_size=batch_size,epochs=3,class_weight='auto',shuffle=False)
-  model.save(out+'last')
   score, acc = model.evaluate(X_test, Y_test, batch_size=batch_size)
   print('now accu:',acc)
   print('ALL DONE')
@@ -141,11 +137,9 @@ def makeonehot(X,dim):
 
 if __name__=="__main__":
   classnum = 99
-  base_model = InceptionV3(weights='imagenet', include_top=False) #include_top=False excludes final FC layer
-  print(len(base_model.layers))
-  X,Y = getdata.get('/home/lihang/2017/bdimg/data/train_data2/')
-  X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.999, random_state=79)
+  X,Y = getdata.get('../data/train_data2/')
+  X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.95, random_state=79)
   Y_train = makeonehot(Y_train,classnum)
   Y_test = makeonehot(Y_test,classnum)
-  train(X_train,Y_train,X_test,Y_test,depoch=35,ftepoch=50,batch_size=32,classnum=classnum,out='0719inception.model')
+  train(X_train,Y_train,X_test,Y_test,depoch=35,ftepoch=50,batch_size=32,classnum=classnum,out='inception.model')
 
